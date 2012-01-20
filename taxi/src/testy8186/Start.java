@@ -1,5 +1,7 @@
-package frankowski8186;
+package testy8186;
 
+import frankowski8186.Miasto;
+import testy8186.dbm;
 
 public class Start {
 
@@ -32,4 +34,9 @@ public class Start {
 		Gdansk.szukajKilku(tab);
 	}
 
-}
+		Firmy p = Gdansk.pobFirme(0);
+		dbm db = new dbm();
+		db.addFirmy(p);
+
+	}
+

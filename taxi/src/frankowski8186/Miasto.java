@@ -81,4 +81,4 @@ public class Miasto {
 		korporacje.remove(pozycja);
 
 	}
-}	
+}
