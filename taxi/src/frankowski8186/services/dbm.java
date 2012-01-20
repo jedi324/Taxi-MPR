@@ -1,4 +1,4 @@
-package testy8186;
+package frankowski8186.services;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,7 +9,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import testy8186.Firmy;
+import frankowski8186.Firmy;
+
 
 
 
@@ -95,7 +96,7 @@ public class dbm {
 
 				while(rs.next())
 				{
-					firmy.add(new Firmy(rs.getString("name"), null, null));
+					firmy.add(new Firmy(rs.getString("name"), null));
 				}
 
 			} catch (SQLException e) {

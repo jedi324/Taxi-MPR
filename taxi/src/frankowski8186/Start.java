@@ -1,5 +1,7 @@
 package frankowski8186;
 
+import frankowski8186.services.dbm;
+
 
 public class Start {
 
@@ -30,6 +32,12 @@ public class Start {
 		tab[1]= "Super Hallo Taxi";
 		tab[2]= "Chwaszczyñska 28";
 		Gdansk.szukajKilku(tab);
+		
+		Firmy g = Gdansk.gettaxi(0);
+		dbm db = new dbm();
+		db.addFirmy(g);
+
 	}
+	
 
 }

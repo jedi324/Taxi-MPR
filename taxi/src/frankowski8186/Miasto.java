@@ -9,6 +9,10 @@ public class Miasto {
 	private List<Firmy> korporacje = new ArrayList<Firmy>();
 
 
+	public List<Firmy> getKorporacje() {
+		return korporacje;
+	}
+
 	public Miasto(String nazwa){
 		this.setNazwa(nazwa);
 	}
@@ -80,5 +84,11 @@ public class Miasto {
 		System.out.println("Firma : " + korporacje.get(pozycja).getNazwaF() + " zostanie usunienta.");
 		korporacje.remove(pozycja);
 
+	}
+
+
+	public Firmy gettaxi(int i) {
+		// TODO Auto-generated method stub
+		return korporacje.get(i);
 	}
 }
