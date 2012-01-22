@@ -1,89 +1,126 @@
-<?xml version="1.0" encoding="iso-8859-2"?>
-<project name="taxi" default="all">
-        
- 
-        <property file="build.properties" />
-        <property name="target" value="./bin/" />
-        <property name="target.classes" value="./bin/classes/" />
-        <property name="target.test" value="./bin-test/" />
-        <property name="target.jar" value="./bin/jar" />
-        <property name="lib" value="./lib" />
-        <property name="lib.junit" value="${lib}/junit4.jar" />
-        <property name="reports.tests" value="./bin-test/raport/" />
-        <property name="src" value="./src" />
-        <property name="src.test" value="./test" />
-        <property name="main.package" value="frankowski8186" />
-        <property name="main.package.dir" value="frankowski8186.test" />
- 
-        <target name="clean" description="Usuwa katalogi ze skompilowanym kodem">
-                <delete includeemptydirs="true" failonerror="no">
-                        <fileset dir="${target.classes}" includes="**/*" />
-                </delete>
-                <delete includeemptydirs="true" failonerror="no">
-                        <fileset dir="${target}" includes="**/*" />
-                </delete>
-                <delete includeemptydirs="true" failonerror="no">
-                        <fileset dir="${target.test}" includes="**/*" />
-                </delete>
-        </target>
- 
-        <target name="create" depends="clean" description="Tworzy strukturę projektu">
-                <mkdir dir="${src}/${main.package.dir}" />
-                <mkdir dir="${src.test}/${main.package.dir}" />
-                <mkdir dir="${target.classes}" />
-                <mkdir dir="${target.test}" />
-                <mkdir dir="${target.jar}" />
-                <mkdir dir="${lib}" />
-                <mkdir dir="${reports.tests}" />
-        </target>
- 
-        <target name="compile" depends="create" description="kompiluje kod">
-                <javac srcdir="${src}" destdir="${target.classes}" />
-        </target>
- 
-        <target name="test-compile" description="kompiluje kod" depends="compile">
-                <javac srcdir="${src.test}" destdir="${target.test}" classpath="${lib.junit};${target.classes}" />
-        </target>
- 
-        <target name="run-test" depends="test-compile" description="Uruchamia testy jednostkowe">
-                <junit>
-                        <classpath>
-                                <pathelement location="${lib}" />
-                                <pathelement location="${lib.junit}" />
-                                <pathelement path="${target.classes}" />
-                                <pathelement path="${target.test}" />
-                        </classpath>
-                        <batchtest fork="yes" todir="${reports.tests}">
-                                <fileset dir="${src.test}">
-                                        <include name="**/*Test.java" />
-                                </fileset>
-                        </batchtest>
-                        <formatter type="xml" />
-                </junit>
-        </target>
- 
-        <target name="package" depends="compile" description="tworzy plik jar">
-                <jar destfile="${target.jar}/app.jar">
-                        <fileset dir="${target.classes}" />
-                </jar>
-        </target>
- 
-        <target name="test-package" depends="test-compile" description="tworzy plik jar z testami">
-                <jar destfile="${target.jar}/app-test.jar">
-                        <fileset dir="${target.test}" />
-                </jar>
-        </target>
- 
-        <target name="src-package" description="tworzy plik jar ze źródłami i źródłami testów">
-                <jar destfile="${target.jar}/app-src.jar">
-                        <fileset dir="${src}" />
-                </jar>
-                <jar destfile="${target.jar}/app-src-test.jar">
-                        <fileset dir="${src.test}" />
-                </jar>
-        </target>
- 
-        
- 
-        <target name="all" depends="package,test-package,src-package"></target>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>frankowski8186</groupId>
+  <artifactId>tax</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>Taxi</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.10</version>
+      <scope>test</scope>
+    </dependency>
+    
+    <dependency>
+    <groupId>log4j</groupId>
+    <artifactId>log4j</artifactId>
+    <version>1.2.16</version>
+</dependency>
+
+    <dependency>
+        		<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<version>2.0.0</version>
+		</dependency>
+		
+		
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>3.6.6.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-annotations</artifactId>
+			<version>3.4.0.GA</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-commons-annotations</artifactId>
+			<version>3.2.0.Final</version>
+		</dependency>
+		<!-- if we need JPA -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>3.6.6.Final</version>
+		</dependency>
+		<!-- Hibernate uses this logging Facade,
+		 be careful with the version number ! -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.6.1</version>
+		</dependency>
+		<dependency>
+			<groupId>jboss</groupId>
+			<artifactId>javassist</artifactId>
+			<version>3.7.ga</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-dbcp</groupId>
+			<artifactId>commons-dbcp</artifactId>
+			<version>1.4</version>
+		</dependency>
+		
+		
+  </dependencies>
+  
+  <build>
+  <resources>
+      <resource>
+        <directory>src/resources/java</directory>
+         </resource>
+    </resources>
+    
+		<plugins>
+		
+		<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-assembly-plugin</artifactId>
+    <executions>
+      <execution>
+         <goals>
+           <goal>attached</goal>
+         </goals>
+         <phase>package</phase>
+         <configuration>
+           <descriptorRefs>
+             <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+          <archive>
+            <manifest>
+              <mainClass>frankowski8186.tax.Start</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+     </execution>
+  </executions>
+</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.0.2</version>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			
+			  
+	</plugins>
+</build>
 </project>
